@@ -1,0 +1,47 @@
+******************************************************************
+!!!Please pause here for further direction from the instructor!!!
+******************************************************************
+
+# SSH to the StackStorm server from the OpenStack server
+ssh <StackStorm Server IP> -l <studentID>
+
+# Take RootSudo role (enter your StudentID password when prompted)
+sudo su
+
+# Clone StackStorm OpenStack workshop repo
+git clone https://github.com/wbentley15/os-summit-wkshop-austin-autorecovery.git
+
+# Change into the working directory
+cd os-summit-wkshop-austin-autorecovery
+
+# Review directory contents
+ls -la
+
+# Review custom StackStorm rules
+cat os_serv_proc.yaml
+cat os_serv_proc_console.yaml
+
+# Change the rule name parameter (it is the first parameter at the top of the file and it can be any name)
+# Example - name: custom_os_rule_<studentID>
+sed -i 's/^name:.*/name: <custom name>/' os_serv_proc.yaml
+
+# Point the rule to your OpenStack server
+sed -i ’s/hosts:.*/hosts: “<OpenStack Server IP>”/‘ os_serv_proc.yaml
+
+# Review rule tester trigger
+cat os_serv_proc_trigger.yaml
+
+# Set st2 credentials to use CLI
+export ST2_AUTH_TOKEN=$(st2 auth admin -p passwd -t)
+
+# Test the custom rules before creating them
+st2-rule-tester --rule=os_serv_proc.yaml --trigger-instance=os_serv_proc_trigger.yaml
+
+# Create the custom StackStorm rules
+st2 rule create os_serv_proc.yaml
+
+# Exit the StackStorm server
+exit
+exit
+
+# Pause here for further instructions, then proceed to Step 4

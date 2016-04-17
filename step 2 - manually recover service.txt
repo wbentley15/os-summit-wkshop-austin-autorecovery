@@ -1,0 +1,23 @@
+******************************************************************
+!!!Please pause here for further direction from the instructor!!!
+******************************************************************
+
+# Find the OpenStack service that has failed
+# Hint: Open browser and navigate to the following URL
+http://162.209.99.227
+
+u: nagiosadmin
+p: passwd
+
+# Once you find the failed service, connect to the service container
+# Execute the following command to discover the container IP, use the 172.x.238. address
+lxc-ls --fancy
+ssh <container IP> -l root
+
+# Attempt to recover the service by restarting it
+service <OpenStack service name> restart
+
+# Exit service container
+exit
+
+# Pause here for further tutorial and instructions, then proceed to Step 3

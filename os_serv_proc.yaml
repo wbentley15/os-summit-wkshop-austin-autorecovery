@@ -1,0 +1,24 @@
+---
+name: 
+pack: nagios
+description: Check OpenStack service process state on container
+enabled: true
+trigger:
+  type: "nagios.service-state-change"
+  parameters: {}
+criteria:
+  trigger.service:
+    pattern: "(.*)_check_ssh_process_(.*)"
+    type: matchregex
+  trigger.state_type:
+    pattern: "HARD"
+    type: "equals"
+  trigger.state:
+    pattern: "CRITICAL"
+    type: "equals"
+action:
+  ref: "core.remote_sudo" 
+  parameters:
+    hosts: ""
+    cwd: "/opt/openstack-ansible/playbooks"
+    cmd: "ansible {{trigger.service | regex_replace('.*_check_ssh_process_', '') | regex_replace('-', '_') }}_container -m shell -a \"service {{trigger.service | regex_replace('.*_check_ssh_process_', '') }} restart\""

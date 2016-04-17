@@ -1,0 +1,48 @@
+******************************************************************
+!!!Please pause here for further direction from the instructor!!!
+******************************************************************
+
+# Trigger an OpenStack service failure on any service of your choice
+
+# Connect to the service container and stop the service
+# Execute the following command to discover the container IP, use the 172.x.238. address
+lxc-ls --fancy
+ssh <container IP> -l root
+
+# Attempt to recover the service by restarting it
+service <OpenStack service name> stop
+
+
+******************************************************************
+!!!Optional steps!!!
+******************************************************************
+
+# SSH to the StackStorm server from the OpenStack server
+ssh <StackStorm Server IP> -l <studentID>
+
+# Take RootSudo role (enter your StudentID password when prompted)
+sudo su
+
+# Tail the st2 RulesEngine log and watch for the magic to happen!
+tail -f /var/log/st2/st2rulesengine.log
+
+# Exit the StackStorm server
+exit
+exit
+
+******************************************************************
+!!!Optional steps end!!!
+******************************************************************
+
+# Wait about 5 minutes and check to see if the service has recovered
+service <OpenStack service name> status
+
+# Exit the service container
+exit
+
+# Exit OpenStack server
+exit
+exit
+
+
+# Workshop completed!  Go tell your friends about the fun stuff you learned today :D.
