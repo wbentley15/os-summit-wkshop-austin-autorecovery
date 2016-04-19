@@ -8,7 +8,7 @@ trigger:
   parameters: {}
 criteria:
   trigger.service:
-    pattern: "(.*)_check_ssh_process_nova-consoleauth"
+    pattern: "check_ssh_process_nova-consoleauth"
     type: matchregex
   trigger.state_type:
     pattern: "HARD"
@@ -21,4 +21,4 @@ action:
   parameters:
     hosts: ""
     cwd: "/opt/openstack-ansible/playbooks"
-    cmd: "ansible {{trigger.service | regex_replace('.*_check_ssh_process_', '') | regex_replace('-', '_') | regex_replace('auth', '')}}_container -m shell -a \"service {{trigger.service | regex_replace('.*_check_ssh_process_', '') }} restart\""
+    cmd: "ansible {{trigger.service | regex_replace('check_ssh_process_', '') | regex_replace('-', '_') | regex_replace('auth', '')}}_container -m shell -a \"service {{trigger.service | regex_replace('check_ssh_process_', '') }} restart\""
