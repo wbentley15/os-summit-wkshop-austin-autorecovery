@@ -4,7 +4,7 @@
 
 # Find the OpenStack service that has failed
 # Hint: Open browser and navigate to the following URL
-http://162.209.99.227
+http://162.209.99.227/nagios3
 
 u: nagiosadmin
 p: passwd
