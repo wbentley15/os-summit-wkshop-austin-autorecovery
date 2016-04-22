@@ -2,7 +2,7 @@
     trigger: "nagios.service-state-change"
     payload:
       attempt: "1"
-      service: "check_ssh_process_nova-consoleauth"
+      service: "infra1_check_ssh_process_nova-consoleauth"
       event_id: "97"
       host: "infra01"
       state_type: "HARD"
