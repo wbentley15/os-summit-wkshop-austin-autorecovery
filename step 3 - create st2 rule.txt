@@ -19,14 +19,19 @@ ls -la
 
 # Review custom StackStorm rules
 cat os_serv_proc.yaml
-cat os_serv_proc_console.yaml
+cat os_serv_proc_glance_api.yaml
+cat os_serv_proc_heat_api.yaml
 
 # Change the rule name parameter (it is the first parameter at the top of the file and it can be any name)
 # Example - name: custom_os_rule_<studentID>
 sed -i 's/^name:.*/name: <custom name>/' os_serv_proc.yaml
+sed -i 's/^name:.*/name: <custom name>/' os_serv_proc_glance_api.yaml
+sed -i 's/^name:.*/name: <custom name>/' os_serv_proc_heat_api.yaml
 
 # Point the rule to your OpenStack server
 sed -i ’s/hosts:.*/hosts: “<OpenStack Server IP>”/‘ os_serv_proc.yaml
+sed -i ’s/hosts:.*/hosts: “<OpenStack Server IP>”/‘ os_serv_proc_glance_api.yaml
+sed -i ’s/hosts:.*/hosts: “<OpenStack Server IP>”/‘ os_serv_proc_heat_api.yaml
 
 # Review rule tester trigger
 cat os_serv_proc_trigger.yaml
@@ -39,6 +44,8 @@ st2-rule-tester --rule=os_serv_proc.yaml --trigger-instance=os_serv_proc_trigger
 
 # Create the custom StackStorm rules
 st2 rule create os_serv_proc.yaml
+st2 rule create os_serv_proc_glance_api.yaml
+st2 rule create os_serv_proc_heat_api.yaml
 
 # Exit the StackStorm server
 exit

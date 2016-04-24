@@ -1,5 +1,5 @@
 ---
-name: Test
+name: 
 pack: nagios
 description: Check OpenStack service process state on container
 enabled: true
@@ -8,7 +8,7 @@ trigger:
   parameters: {}
 criteria:
   trigger.service:
-    pattern: "(.*)_check_ssh_process_(.*)"
+    pattern: "(.*)_check_ssh_process_glance-api"
     type: matchregex
   trigger.state_type:
     pattern: "HARD"
@@ -19,6 +19,6 @@ criteria:
 action:
   ref: "core.remote_sudo" 
   parameters:
-    hosts: "127.0.0.1"
+    hosts: ""
     cwd: "/opt/openstack-ansible/playbooks"
-    cmd: "ansible {{trigger.service | regex_replace('.*_check_ssh_process_', '') | regex_replace('-', '_') }}_container -m shell -a \"service {{trigger.service | regex_replace('.*_check_ssh_process_', '') }} restart\""
+    cmd: "ansible {{trigger.service | regex_replace('.*_check_ssh_process_', '') | regex_replace('-api', '')}}_container -m shell -a \"service {{trigger.service | regex_replace('.*_check_ssh_process_', '') }} restart\""
